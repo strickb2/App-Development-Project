@@ -41,4 +41,8 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('register/', views.UserRegistrationAPIView.as_view(), name="register"),
+    path('add/', views.AddBasketItemAPIView.as_view(), name="add_to_basket"),
+    path('remove/', views.RemoveBasketItemAPIView.as_view(), name="remove_from_basket"),
+    path('checkout/', views.CheckoutAPIView.as_view(), name="checkout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
