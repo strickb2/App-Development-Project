@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <!-- Products -->
+    <div class="ProductsContainer" onload="initProducts()">
+      <div class="ProductContainer">
+        <h2 class="ProductName">Product Name</h2>
+        <p class="ProductArtist">Artist</p>
+        <p class="ProductPrice">€10.00</p>
+      </div>
+    </div>
+    
+    <!-- JavaScript Segment -->
+    <script>
+      function initProducts() {
+        let productsReq = "http://127.0.0.1:8000/products/"
+        fetch(productsReq) // make a request to this endpoint
+          .then(response => response.json()) // with our response, get the json data returned
+          .then(data => productsList(data)); // print the json data
+      }
+      
+      // Get page elements for products
+      var productName = document.getElementById("ProductName")
+      const productArtist = document.getElementById("ProductArtist") 
+      const productPrice = document.getElementById("ProductPrice") 
+
+      // Display Product List
+      function productsList(data) {
+        for(let productId=0; productId<=data.length - 1; productId++) {
+          // console.log(data.productId);
+          // productName.innerHTML = str(data[productId].name);
+          // productArtist.innerHTML = str(data[productId].artist);
+          // productPrice.innerHTML = str(data[productId].price);
+        }
+      }
+      
+
+    </script>
+  </body>
+</html>
