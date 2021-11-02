@@ -4,44 +4,141 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
+  
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <!-- Filters for list -->
+    
+    <select id="OptionArtist" onchange="getProductsFilteredBy('Artist', this.value)">
+      <option value="">Select Artist</option>
+    </select>
+  
+    <select id="OptionGenre" onchange="getProductsFilteredBy('Genre', this.value)">
+      <option value="">Select Genre</option>
+    </select>
+
+    <select id="OptionLabel" onchange="getProductsFilteredBy('Label', this.value)">
+      <option value="">Select Label</option>
+    </select>
 
     <!-- Products -->
-    <div class="ProductsContainer" onload="initProducts()">
-      <div class="ProductContainer">
-        <h2 class="ProductName">Product Name</h2>
-        <p class="ProductArtist">Artist</p>
-        <p class="ProductPrice">€10.00</p>
+    <div id="ProductsContainer" class="col-3">
+      <div id="ProductContainer">
       </div>
     </div>
     
     <!-- JavaScript Segment -->
     <script>
-      function initProducts() {
-        let productsReq = "http://127.0.0.1:8000/products/"
-        fetch(productsReq) // make a request to this endpoint
-          .then(response => response.json()) // with our response, get the json data returned
-          .then(data => productsList(data)); // print the json data
+      function init() {
+        // Create the list of filters
+
+        // 1. Artists
+        getArtists();
+        // 2. Label
+        getLabels();
+        // 3. Genre
+        getGenres();
+        
+        // Create the list of products
+        getProducts();
+      }
+
+
+      // ------ Page Elements ------
+      const productsContainer = document.getElementById("ProductsContainer");
+      const artistOptionsContainer = document.getElementById("OptionArtist");
+      const genreOptionsContainer = document.getElementById("OptionGenre");
+      const labelOptionsContainer = document.getElementById("OptionLabel");
+      
+      
+      // ------ Get Requests ------
+      const getProducts = async () => {
+        let sRequestProducts = "http://127.0.0.1:8000/products/";
+        fetch(sRequestProducts) // make a request to this endpoint
+          .then(response => response.json()
+            .then(oProducts => displayProducts(oProducts))
+          );
+      }
+
+      function getArtists() {
+        let sRequestArtists = "http://127.0.0.1:8000/artists/";
+        fetch(sRequestArtists) // make a request to this endpoint
+          .then(response => response.json()
+            .then(oArtists => displayArtistsOptions(oArtists))
+          );
       }
       
-      // Get page elements for products
-      var productName = document.getElementById("ProductName")
-      const productArtist = document.getElementById("ProductArtist") 
-      const productPrice = document.getElementById("ProductPrice") 
+      function getGenres() {
+        let sRequestGenres = "http://127.0.0.1:8000/genres/";
+        fetch(sRequestGenres) // make a request to this endpoint
+          .then(response => response.json()
+            .then(oGenres => displayGenresOptions(oGenres))
+          );
+      }
 
-      // Display Product List
-      function productsList(data) {
-        for(let productId=0; productId<=data.length - 1; productId++) {
-          // console.log(data.productId);
-          // productName.innerHTML = str(data[productId].name);
-          // productArtist.innerHTML = str(data[productId].artist);
-          // productPrice.innerHTML = str(data[productId].price);
+      function getLabels() {
+        let sRequestLabels = "http://127.0.0.1:8000/labels/";
+        fetch(sRequestLabels) // make a request to this endpoint
+          .then(response => response.json()
+            .then(oLabels => displayLabelsOptions(oLabels))
+          );
+      }
+
+      function getProductsFilteredBy(sFilterType, sFilterValue){
+        let sRequestProductsFiltered = "hhtp://127.0.0.1:8000/";
+        // Request for updated list
+
+        // Update the productsList
+      }
+
+      // ------ Populating Functions ------
+      
+      function displayArtistsOptions(oArtists) {
+        for(let artistId=0; artistId<=oArtists.length - 1; artistId++) {
+          artistEl = document.createElement("option");
+          artistEl.value = artistId;
+
+          artistEl.innerHTML = oArtists[artistId].name;
+
+          artistOptionsContainer.appendChild(artistEl);
         }
       }
-      
 
+      function displayGenresOptions(oGenres) {
+        for(let genreId=0; genreId<=oGenres.length - 1; genreId++) {
+          genreEl = document.createElement("option");
+          genreEl.value = genreId;
+
+          genreEl.innerHTML = oGenres[genreId].name;
+
+          genreOptionsContainer.appendChild(genreEl);
+        }
+      }
+
+      function displayLabelsOptions(oLabels) {
+        for(let labelId=0; labelId<=oLabels.length - 1; labelId++) {
+          labelEl = document.createElement("option");
+          labelEl.value = labelId;
+
+          labelEl.innerHTML = oLabels[labelId].name;
+
+          labelOptionsContainer.appendChild(labelEl);
+        }
+      }
+
+      function displayProducts(oProducts) {
+        for(let productId=0; productId<=oProducts.length - 1; productId++) {
+          let productElTitle = document.createElement("h3");
+          let productElPrice = document.createElement("p");
+
+          productElTitle.innerHTML = oProducts[productId].name  + " - " + oProducts[productId].artist_name;
+          productElPrice.innerHTML = "€" + oProducts[productId].price;
+
+          productsContainer.appendChild(productElTitle);
+          productsContainer.appendChild(productElPrice);
+        }
+      }
+
+      init();
     </script>
   </body>
 </html>
