@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import (
 )
 
 router = routers.DefaultRouter()
-router.register(r'products', views.ProductViewSet)
+router.register(r'products', views.ProductViewSet, basename='products')
 router.register(r'genres', views.GenreViewSet)
 router.register(r'labels', views.LabelViewSet)
 router.register(r'artists', views.ArtistViewSet)

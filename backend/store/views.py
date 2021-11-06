@@ -4,10 +4,13 @@ from rest_framework import viewsets, generics
 from .models import *
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ProductViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
+	queryset = Product.objects.all()
+	filter_backends = [DjangoFilterBackend]
+	filterset_fields = ['artist', 'genre', 'label']
 
 class ArtistViewSet(viewsets.ModelViewSet):
 	queryset = Artist.objects.all()
