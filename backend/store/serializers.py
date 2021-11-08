@@ -23,13 +23,13 @@ class APIUserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['username', 'email', 'password']
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    artist_name = serializers.CharField(source="artist.name")
-    genre_name = serializers.CharField(source="genre.name")
-    label_name = serializers.CharField(source="label.name")
+    artist = serializers.CharField(source="artist.name")
+    genre = serializers.CharField(source="genre.name")
+    label = serializers.CharField(source="label.name")
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'artist_name', 'genre_name', 'label_name', 'product_image', 'price']
+        fields = ['id', 'name', 'artist', 'genre', 'label', 'product_image', 'price']
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
