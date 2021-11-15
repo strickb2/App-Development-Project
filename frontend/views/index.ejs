@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('partials/head'); -%>
   </head>
   
   <body>
-    <!-- Filters for list -->
+    <!-- Navbar -->
     
-    <select id="FilterArtist">
-      <option value="">Select Artist</option>
-    </select>
-  
-    <select id="FilterGenre">
-      <option value="">Select Genre</option>
-    </select>
+    <%- include('partials/header'); -%>
+    <div class="bg-dark">
+      <div class="container">
+        <div class="row">
+          <h1 class="display-1 text-white text-center"> Vinyl Records </h1>
+        </div>
+        <!-- Filters for products list -->
+        <div class="row d-flex justify-content-center">
+          <div class="col-auto">
+            <div class="form">
+              <select class="form-select" id="FilterArtist">
+                <option value="">Select Artist</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="col-auto">
+            <div class="form">
+              <select class="form-select" id="FilterGenre">
+                <option value="">Select Genre</option>
+              </select>
+            </div>
+          </div>
 
-    <select id="FilterLabel">
-      <option value="">Select Label</option>
-    </select>
-
-    <button onclick="getProductsFilteredBy()">Filter</button>
-
-    <!-- Products -->
-    <div id="ProductsContainer" class="col-3">
+          <div class="col-auto">
+            <div class="form">
+              <select class="form-select" id="FilterLabel">
+                <option value="">Select Label</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="col-auto">
+            <button class="btn btn-primary mb-3" onclick="getProductsFilteredBy()">Filter</button>
+          </div>
+        </div>
+          <!-- Products -->
+        <div class="card" id="ProductsContainer">
+        </div>
+      </div>
     </div>
+    <footer class="bg-secondary py-3 mt-auto text-white footer">
+      <%- include('partials/footer'); -%>
+    </footer>
     
     <!------------------------- JavaScript Segment ------------------------->
     <script>
@@ -52,12 +78,8 @@
       };
 
       // ------ Get Requests ------
-      async function getData(url, data=null) {
-        if (!data){
-          response = await fetch(url);
-        } else {
-          response = await fetch(url, {mode: 'cors'});
-        }
+      async function getData(url) {
+        response = await fetch(url);
         data = await response.json();
         return data;
       };
@@ -100,11 +122,20 @@
             filters.push("label=" + filterLabel);
           };
           sRequestProductsFiltered += filters.join("&");
+          
           let promiseProducts = getData(sRequestProductsFiltered, true);
+          
           clearProducts();
+          
           displayProducts(promiseProducts);
         } else {
-          alert("No Filters Selected");
+          // Check if no products were found in previous filter
+          if (containerProducts.innerHTML === "<h3>No Products Found.</h3>"){
+            clearProducts();
+            displayProducts(getProducts());
+          } else {
+            alert("No Filters Selected");
+          }
         }
       };
 
@@ -114,19 +145,49 @@
       function displayProducts(promiseProducts) {
         promiseProducts.then(oProducts => {
           if (oProducts.length > 0) {
-            console.log(oProducts);
             for(let idProduct=0; idProduct<=oProducts.length - 1; idProduct++) {
-              let elProductTitle = document.createElement("h3");
-              let elProductPrice = document.createElement("p");
+              
+              // Container for all product info
+              let containerProduct = document.createElement('div');
+              containerProduct.className = "row";
+              
+              // Column for product image
+              let columnImage = document.createElement('div');
+              columnImage.className = "col-2";
 
-              elProductTitle.innerHTML = oProducts[idProduct].name  + " - " + oProducts[idProduct].artist;
+              let elProductImage = document.createElement('img');
+              elProductImage.className = "img-thumbnail";
+              elProductImage.src = oProducts[idProduct].product_image;
+
+              columnImage.appendChild(elProductImage);
+
+              // Column for product name, artist, label and genre
+              let columnDesc = document.createElement('div');
+              columnDesc.className = "col-7";
+              
+              let elProductDescTitle = document.createElement("h3");
+              elProductDescTitle.innerHTML = oProducts[idProduct].name  + " - " + oProducts[idProduct].artist;
+              columnDesc.appendChild(elProductDescTitle);
+
+              let elProductDescBody = document.createElement("p");
+              elProductDescBody.innerHTML = "Genre: " + oProducts[idProduct].genre + "<br>Label: "+ oProducts[idProduct].label; ;
+              columnDesc.appendChild(elProductDescBody);
+
+              // Column for product price and add to cart button
+              let columnBuy = document.createElement('div');
+              columnBuy.className = "col-3";
+
+              let elProductPrice = document.createElement("h3");
               elProductPrice.innerHTML = "€" + oProducts[idProduct].price;
+              columnBuy.appendChild(elProductPrice);
 
-              containerProducts.appendChild(elProductTitle);
-              containerProducts.appendChild(elProductPrice);
+              containerProduct.appendChild(columnImage);
+              containerProduct.appendChild(columnDesc);
+              containerProduct.appendChild(columnBuy);
+
+              containerProducts.appendChild(containerProduct);
             };
           } else {
-            console.log("HERE");
             let elProductNotFound = document.createElement("h3");
 
             elProductNotFound.innerHTML = "No Products Found."
