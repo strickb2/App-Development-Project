@@ -1,3 +1,4 @@
+from django.utils import tree
 from rest_framework import serializers
 from .models import *
 
@@ -55,11 +56,16 @@ class GenreSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'name']
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
+    product_id = serializers.CharField(source="product.id")
+
     class Meta:
         model = Song
         fields = ['id', 'product_id', 'name']
 
 class BasketItemSerializer(serializers.HyperlinkedModelSerializer):
+    product_id = serializers.CharField(source="product_id.id")
+    item_price = BasketItem.item_price
+    
     class Meta:
         model = BasketItem
         fields = ['id', 'product_name', 'product_id', 'quantity', 'item_price', 'basket_id']
