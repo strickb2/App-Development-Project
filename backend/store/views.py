@@ -55,9 +55,9 @@ class APIUserViewSet(viewsets.ModelViewSet):
 	serializer_class = APIUserSerializer
 
 class UserRegistrationAPIView(generics.CreateAPIView):
-    serializer_class = UserRegistrationSerializer
-    permission_classes = [AllowAny] #No login is needed to access this route
-    queryset = queryset = APIUser.objects.all()
+	serializer_class = UserRegistrationSerializer
+	permission_classes = [AllowAny] #No login is needed to access this route
+	queryset = APIUser.objects.all()
 
 class AddBasketItemAPIView(generics.CreateAPIView):
     serializer_class = AddBasketItemSerializer

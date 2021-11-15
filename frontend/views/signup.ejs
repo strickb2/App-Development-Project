@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Sign Up</title>
+        <link rel='stylesheet' href='/stylesheets/form.css' />
+    </head>
+    <body>
+        <h1>Sign Up</h1>
+        <div>
+            <form id="signup-form">
+                <label for="username-input">Username</label>
+                <input type="text" name="username-input" id="username" placeholder="Your username" required>
+                <label for="password-input">Password</label>
+                <input type="password" id="password" name="password-input" placeholder="Your password" required>
+                <label for="email-input">Email</label>
+                <input type="email" id="email" name="email-input" placeholder="Your email" required>
+                <label for="name-input">Full Name</label>
+                <input type="name" id="name" name="name-input" placeholder="Your full name" required>
+                <label for="address-input">Address</label>
+                <input type="address" id="address" name="address-input" placeholder="Your address" required>
+                <label for="phone-input">Phone Number</label>
+                <input type="phone" id="phone" name="phone-input" placeholder="Your phone number" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <script>
+            let myform = document.getElementById("signup-form"); // get the form
+            myform.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let username = document.getElementById("username").value;
+                let password = document.getElementById("password").value;
+                let email = document.getElementById("email").value;
+                let name = document.getElementById("name").value;
+                let phone = document.getElementById("phone").value;                
+                let address = document.getElementById("address").value;
+
+                if (username && password && email && name && parseInt(phone) && address) {
+                    register(username, password, email, name, phone, address);
+                } else {
+                    if(username == '') {
+                        alert('Please enter username');
+                    }
+                    if(password == '') {
+                        alert('Please enter password');
+                    }
+                    if(email == '') {
+                        alert('Please enter email');
+                    }
+                    if(name == '') {
+                        alert('Please enter full name');
+                    }
+                    if(phone == '' || !parseInt(phone)) {
+                        alert('Please enter valid phone number');
+                    }
+                    if(address == '') {
+                        alert('Please enter address');
+                    }
+                }
+            });
+            async function register(username, password, email, name, phone, address) {
+                const rawResponse = await fetch("http://127.0.0.1:8000/register/", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors',
+                    body: JSON.stringify({username: username,
+                                          password: password,
+                                          email: email,
+                                          name: name,
+                                          phone: phone,
+                                          address: address}
+                                        )
+                });
+                console.log(rawResponse.status);
+                if(rawResponse.status >= 200 && rawResponse.status <= 299) {
+                    window.location.href = "/login";
+                    alert('Account Created. You can now log in.')
+                } else {
+                    alert("User already exists. Please re-enter credentials.");
+                }
+            }
+
+        </script>
+    <body>
+</html>

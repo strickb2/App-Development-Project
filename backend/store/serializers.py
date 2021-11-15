@@ -4,14 +4,22 @@ from .models import *
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = APIUser
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'name', 'address', 'phone']
         #extra_kwargs = {'password': {'write-only': True}}
 
     def create(self, validated_data):
         email = validated_data['email']
         username = validated_data['username']
         password = validated_data['password']
-        new_user =APIUser.objects.create_user(username=username,email=email,password=password)
+        name = validated_data['name']
+        address = validated_data['address']
+        phone = validated_data['phone']
+        new_user =APIUser.objects.create_user(username=username,
+                                              email=email,
+                                              password=password,
+                                              name=name,
+                                              address=address,
+                                              phone=phone)
         new_user.save()
         new_basket = Basket.objects.create(user_id = new_user)
         new_basket.save()
@@ -20,7 +28,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class APIUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = APIUser
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password', 'name', 'address', 'phone']
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     artist = serializers.CharField(source="artist.name")

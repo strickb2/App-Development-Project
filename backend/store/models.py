@@ -1,11 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator
 
 # Create your models here.
 class APIUser(AbstractUser):
     username = models.CharField(max_length=100, null=False, unique=True)
     email = models.CharField(max_length=150, null=False)
     password = models.CharField(max_length=23, null=False)
+    name = models.CharField(max_length=100, null=False)
+    address = models.CharField(max_length=200, null=False)
+    phone = models.CharField(max_length=20, null=False)
 
 # Product Artist Model
 class Artist(models.Model):
