@@ -10,7 +10,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 	serializer_class = ProductSerializer
 	queryset = Product.objects.all()
 	filter_backends = [DjangoFilterBackend]
-	filterset_fields = ['artist', 'genre', 'label']
+	filterset_fields = ['artist', 'genre', 'label', 'id']
 
 class ArtistViewSet(viewsets.ModelViewSet):
 	queryset = Artist.objects.all()
