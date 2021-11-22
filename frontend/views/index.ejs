@@ -40,7 +40,7 @@
           </div>
           
           <div class="col-auto">
-            <button class="btn btn-primary mb-3" onclick="getProductsFilteredBy()">Filter</button>
+            <button onclick="getProductsFilteredBy()" class="btn btn-primary mb-3">Filter</button>
           </div>
         </div>
           <!-- Products -->
@@ -48,199 +48,18 @@
         </div>
       </div>
     </div>
+    <!-- Footer -->
     <footer class="bg-secondary py-3 mt-auto text-white footer">
       <%- include('partials/footer'); -%>
     </footer>
     
     <!------------------------- JavaScript Segment ------------------------->
-    <script>
-      // ------ Page Elements ------
-      const containerProducts = document.getElementById("ProductsContainer");
-      const containerArtistFilter = document.getElementById("FilterArtist");
-      const containerGenreFilter = document.getElementById("FilterGenre");
-      const containerLabelFilter = document.getElementById("FilterLabel");
-      
-      // ------ Request URLs ------
-      const sRequestProducts = "http://127.0.0.1:8000/products/";
-      const sRequestArtists = "http://127.0.0.1:8000/artists/";
-      const sRequestGenres = "http://127.0.0.1:8000/genres/";
-      const sRequestLabels = "http://127.0.0.1:8000/labels/";
-      const sRequestBasketItems = "http://127.0.0.1:8000/basketitems/";
-      
-      function init() {
-        // Create the list of filters
-        displayArtistsFilters();
-        displayLabelsFilters();
-        displayGenresFilters();
-        
-        // Create the list of products
-        displayInitProducts();
-      };
-
-      // ------ Get Requests ------
-      async function getData(url) {
-        response = await fetch(url);
-        data = await response.json();
-        return data;
-      };
-
-      function getProducts() {
-        return getData(sRequestProducts);
-      };
-
-      function getArtists() {
-        return getData(sRequestArtists);
-      };
-      
-      function getGenres() {
-        return getData(sRequestGenres);
-      };
-
-      function getLabels() {
-        return getData(sRequestLabels);
-      };
-
-      function getProductsFilteredBy() {
-        // Build Request for filtered products
-        let sRequestProductsFiltered = "http://127.0.0.1:8000/products/?";
-
-        // Get values of selected filters
-        let filterArtist = containerArtistFilter.options[containerArtistFilter.selectedIndex].value;
-        let filterGenre = containerGenreFilter.options[containerGenreFilter.selectedIndex].value;
-        let filterLabel = containerLabelFilter.options[containerLabelFilter.selectedIndex].value;
-
-        // Check if there are any filters selected
-        if (filterArtist || filterGenre || filterLabel) {
-          let filters = []
-          if (filterArtist) {
-            filters.push("artist=" + filterArtist);
-          }; 
-          if (filterGenre) {
-            filters.push("genre=" + filterGenre);
-          }; 
-          if (filterLabel) {
-            filters.push("label=" + filterLabel);
-          };
-          sRequestProductsFiltered += filters.join("&");
-          
-          let promiseProducts = getData(sRequestProductsFiltered, true);
-          
-          clearProducts();
-          
-          displayProducts(promiseProducts);
-        } else {
-          // Check if no products were found in previous filter
-          if (containerProducts.innerHTML === "<h3>No Products Found.</h3>"){
-            clearProducts();
-            displayProducts(getProducts());
-          } else {
-            alert("No Filters Selected");
-          }
-        }
-      };
-
-      // ------ Populating Functions ------
-
-      // ------ Products ------
-      function displayProducts(promiseProducts) {
-        promiseProducts.then(oProducts => {
-          if (oProducts.length > 0) {
-            for(let idProduct=0; idProduct<=oProducts.length - 1; idProduct++) {
-              
-              // Container for all product info
-              let containerProduct = document.createElement('div');
-              containerProduct.className = "row";
-              
-              // Column for product image
-              let columnImage = document.createElement('div');
-              columnImage.className = "col-2";
-
-              let elProductImage = document.createElement('img');
-              elProductImage.className = "img-thumbnail";
-              elProductImage.src = oProducts[idProduct].product_image;
-
-              columnImage.appendChild(elProductImage);
-
-              // Column for product name, artist, label and genre
-              let columnDesc = document.createElement('div');
-              columnDesc.className = "col-7";
-              
-              let elProductDescTitle = document.createElement("h3");
-              elProductDescTitle.innerHTML = oProducts[idProduct].name  + " - " + oProducts[idProduct].artist;
-              columnDesc.appendChild(elProductDescTitle);
-
-              let elProductDescBody = document.createElement("p");
-              elProductDescBody.innerHTML = "Genre: " + oProducts[idProduct].genre + "<br>Label: "+ oProducts[idProduct].label; ;
-              columnDesc.appendChild(elProductDescBody);
-
-              // Column for product price and add to cart button
-              let columnBuy = document.createElement('div');
-              columnBuy.className = "col-3";
-
-              let elProductPrice = document.createElement("h3");
-              elProductPrice.innerHTML = "€" + oProducts[idProduct].price;
-              columnBuy.appendChild(elProductPrice);
-
-              containerProduct.appendChild(columnImage);
-              containerProduct.appendChild(columnDesc);
-              containerProduct.appendChild(columnBuy);
-
-              containerProducts.appendChild(containerProduct);
-            };
-          } else {
-            let elProductNotFound = document.createElement("h3");
-
-            elProductNotFound.innerHTML = "No Products Found."
-
-            containerProducts.appendChild(elProductNotFound);
-          }
-        });
-      };
-
-      // ------ All Filters ------
-      function displayFilters(promiseData, containerFilter) {
-        promiseData.then(oOptions => {
-          for(let idOption=0; idOption<=oOptions.length - 1; idOption++) {
-            elOption = document.createElement("option");
-            elOption.value = oOptions[idOption].id;
-
-            elOption.innerHTML = oOptions[idOption].name;
-
-            containerFilter.appendChild(elOption);
-          }
-        });
-      }
-      
-      function displayArtistsFilters() {
-        promiseArtists = getArtists();
-        displayFilters(promiseArtists, containerArtistFilter);
-      };
-
-      function displayGenresFilters(oGenres) {
-        promiseGenres = getGenres();
-        displayFilters(promiseGenres, containerGenreFilter);
-      };
-
-      function displayLabelsFilters(oLabels) {
-        promiseLabels = getLabels();
-        displayFilters(promiseLabels, containerLabelFilter);
-      };
-      
-      function displayInitProducts() {
-        promiseProducts = getProducts();
-        displayProducts(promiseProducts);
-      };
-
-      // ------ UnPopulating Functions ------
-      function clearContainer(container) {
-        container.innerHTML = "";
-      };
-
-      function clearProducts() {
-        clearContainer(containerProducts);
-      }
-
-      init();
+    <script defer type="module" src="javascripts/page/index.js"></script>
+    
+    <script defer type="module">
+      import getProductsFilteredBy from "/javascripts/eventHandler/eventFilterProducts.js";
+      // Have module function accessible globally
+      window.getProductsFilteredBy = getProductsFilteredBy;
     </script>
   </body>
 </html>
