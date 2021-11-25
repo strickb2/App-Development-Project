@@ -15,7 +15,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         name = validated_data['name']
         address = validated_data['address']
         phone = validated_data['phone']
-        new_user =APIUser.objects.create_user(username=username,
+        new_user = APIUser.objects.create_user(username=username,
                                               email=email,
                                               password=password,
                                               name=name,
@@ -92,8 +92,8 @@ class AddBasketItemSerializer(serializers.ModelSerializer):
         if request:
             current_user = request.user
             shopping_basket = Basket.objects.filter(user_id=current_user, is_active=True).first()
-            # Check if the item is already in the basket
-            basket_items = BasketItem.objects.filter(product_id=product_id).first()
+            # Check if the item is already in the user's basket
+            basket_items = BasketItem.objects.filter(product_id=product_id, basket_id=shopping_basket).first()
             if basket_items:
                 basket_items.quantity = basket_items.quantity + 1 # if it is already in the basket, add to the quantity
                 basket_items.save()
@@ -102,7 +102,6 @@ class AddBasketItemSerializer(serializers.ModelSerializer):
                 new_basket_item = BasketItem.objects.create(basket_id = shopping_basket, product_id=product_id)
                 new_basket_item.save()
                 return new_basket_item
-            
         else:
             return None
 
