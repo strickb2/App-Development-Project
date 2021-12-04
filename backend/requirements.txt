@@ -4,4 +4,4 @@ markdown
 django-filter
 djangorestframework-simplejwt
 django-cors-headers
-pyjwt == 2.1.0
+pyjwt==2.1.0
