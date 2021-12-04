@@ -1,8 +1,11 @@
 import { getProductRedirectQuery } from "../data/queryUrl.js";
 
+// Get products container
 export const containerProducts = document.getElementById("ProductsContainer");
 
+// Display products data in products container on home page
 export function createProductsContainer(oProducts) {
+    // If we have products
     if (oProducts.length > 0) {
         for(let idProduct=0; idProduct<=oProducts.length - 1; idProduct++) {
             let oProduct = oProducts[idProduct];
@@ -58,6 +61,7 @@ export function createProductsContainer(oProducts) {
             containerProducts.appendChild(containerProduct);
         };
     } else {
+        // If no products say none found
         let elProductNotFound = document.createElement("h3");
 
         elProductNotFound.innerHTML = "No Products Found."

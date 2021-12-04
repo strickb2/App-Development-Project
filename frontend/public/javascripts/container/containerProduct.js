@@ -4,7 +4,9 @@ export const containerProductImage = document.getElementById("ProductImageContai
 export const containerProductDesc = document.getElementById("ProductDescContainer");
 export const containerProductPriceBuy = document.getElementById("ProductPriceBuyContainer");
 
+// Display individual product data on product page
 export function createProductContainer(oProduct) {
+    // if there is a product
     if (oProduct) {
         // Column 1: Image in top left corner
         let elProductImage = document.createElement('img');
@@ -63,7 +65,6 @@ export function createProductContainer(oProduct) {
                         },
                         body: JSON.stringify({"product_id": oProduct.id})
                     })
-                let data = response.json();
                 if (response.status < 400) {
                     alert("Added to your cart!")
                 }

@@ -1,8 +1,8 @@
-import { getArtists, getGenres, getLabels, getProduct, getProducts } from "../data/queryFetch.js";
+// File for functions to help miscellaneous tasks to do with container population
+import { getArtists, getGenres, getLabels, getProduct } from "../data/queryFetch.js";
 import { displayFilters } from "./containerFilters.js"
 import { createProductContainer } from "./containerProduct.js";
 import { createProductsContainer } from "./containerProducts.js";
-
 
 // ------ Page Elements ------
 export const containerArtistFilter = document.getElementById("FilterArtist");
@@ -45,6 +45,6 @@ displayFilters(promiseLabels, containerLabelFilter);
 
 // ------ Displays selected product on product page ------
 export function displayProduct(product_id) {
-    let promiseProduct = getProduct(product_id)
+    let promiseProduct = getProduct(product_id);
     promiseProduct.then(oProduct => oProduct ? createProductContainer(oProduct[0]): null);
 }

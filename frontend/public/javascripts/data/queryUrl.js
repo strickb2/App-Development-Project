@@ -7,7 +7,8 @@ function getBackendQuery(type) {
         'artists':'artists/',
         'genres':'genres/',
         'labels':'labels/',
-        'basketitems':'basketitems/'
+        'basketitems':'basketitems/',
+        "user":"users/current/"
     };
 
     if (queries[type]) {
@@ -44,6 +45,10 @@ export function getBasketItemsQuery() {
     return getBackendQuery('basketitems');
 };
 
+export function getCurrentUserQuery() {
+    return getBackendQuery("user");
+};
+
 function getFrontendQuery(type) {
     const baseFrontendUrl = "http://127.0.0.1:3000/";
     const queries = {
@@ -52,10 +57,10 @@ function getFrontendQuery(type) {
         "signup":"signup/",
     }
     if (queries[type]) {
-        return baseFrontendUrl + queries[type]
+        return baseFrontendUrl + queries[type];
     }
 };
 
 export function getProductRedirectQuery(productId) {
     return getFrontendQuery('product') + productId;
-}
+};

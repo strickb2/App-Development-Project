@@ -1,9 +1,12 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <%- include('partials/head'); -%>
         <title>Login Page</title>
-        <link rel='stylesheet' href='/stylesheets/form.css' />
     </head>
     <body>
+        <!-- Navbar -->
+        <%- include('partials/header'); -%>
         <h1>Login</h1>
         <form id="login-form">
             <label for="username-input">Username</label>
@@ -12,7 +15,9 @@
             <input type="password" id="password" name="password-input" placeholder="Your password" required>
             <button type="submit">Login</button>
         </form>
-        <script>
+        <script type="module">
+            import { navLoad } from "/javascripts/partials/nav.js"
+            
             let myform = document.getElementById("login-form"); // get the form
             myform.addEventListener('submit', function(e) {
                 e.preventDefault();

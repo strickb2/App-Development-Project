@@ -4,6 +4,8 @@
         <%- include('partials/head'); -%>
     </head>
     <body>
+        <!-- Navbar -->
+        <%- include('partials/header'); -%>
         <div class="ProductContainer">
             <div id="ProductTitleContainer" class="row">
                 <div id="ProductImageContainer" class="col-4">
@@ -18,6 +20,9 @@
 
         <!-- JavaScript Section-->
         <script type="module" src="../javascripts/page/product.js">            
+        </script>
+        <script type="module">
+            import { navLoad } from "/javascripts/partials/nav.js"
         </script>
 
     </body>

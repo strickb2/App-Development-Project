@@ -1,9 +1,12 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <%- include('partials/head'); -%>
         <title>Shopping Cart</title>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
     </head>
     <body>
+        <!-- Navbar -->
+        <%- include('partials/header'); -%>
         <h1>Shopping Cart</h1>
         <div class="ContainerCart">
             <div id="ContainerCartList">
@@ -13,7 +16,9 @@
             <div id="ContainerOrderButton">
             </div>
         </div>
-        <script>
+        <script type="module">
+            import { navLoad } from "/javascripts/partials/nav.js"
+            
             // Page Elements
             const containerCartProducts = document.getElementById("ContainerCartList");
             const containerCartTotal = document.getElementById("ContainerCartTotal");

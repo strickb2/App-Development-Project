@@ -1,6 +1,9 @@
 from django.db.models import query
+from django.http import request
 from django.shortcuts import render
-from rest_framework import viewsets, generics
+from rest_framework import views, viewsets, generics
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.serializers import Serializer
 from .models import *
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
@@ -53,10 +56,18 @@ class OrderViewSet(viewsets.ModelViewSet):
 class APIUserViewSet(viewsets.ModelViewSet):
 	queryset = APIUser.objects.all()
 	serializer_class = APIUserSerializer
+	permission_classes = [IsAuthenticated]
+
+	def get_object(self):
+		pk = self.kwargs.get('pk')
+		if pk == "current":
+			return self.request.user
+		
+		return super(APIUserViewSet, self).get_object()
 
 class UserRegistrationAPIView(generics.CreateAPIView):
 	serializer_class = UserRegistrationSerializer
-	permission_classes = [AllowAny] #No login is needed to access this route
+	permission_classes = [AllowAny] # No login is needed to access this route
 	queryset = APIUser.objects.all()
 
 class AddBasketItemAPIView(generics.CreateAPIView):

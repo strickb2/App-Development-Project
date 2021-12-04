@@ -6,8 +6,8 @@
   
   <body>
     <!-- Navbar -->
-    
     <%- include('partials/header'); -%>
+    
     <div class="bg-dark">
       <div class="container">
         <div class="row">
@@ -58,6 +58,7 @@
     
     <script defer type="module">
       import getProductsFilteredBy from "/javascripts/eventHandler/eventFilterProducts.js";
+      import { navLoad } from "/javascripts/partials/nav.js"
       // Have module function accessible globally
       window.getProductsFilteredBy = getProductsFilteredBy;
     </script>

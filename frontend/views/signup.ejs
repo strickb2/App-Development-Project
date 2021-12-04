@@ -1,9 +1,13 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <%- include('partials/head'); -%>
         <title>Sign Up</title>
-        <link rel='stylesheet' href='/stylesheets/form.css' />
     </head>
     <body>
+        <!-- Navbar -->
+        <%- include('partials/header'); -%>
+
         <h1>Sign Up</h1>
         <div>
             <form id="signup-form">
@@ -22,7 +26,9 @@
                 <button type="submit">Sign Up</button>
             </form>
         </div>
-        <script>
+        <script type="module">
+            import { navLoad } from "/javascripts/partials/nav.js"
+
             let myform = document.getElementById("signup-form"); // get the form
             myform.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -80,7 +86,7 @@
                     alert("User already exists. Please re-enter credentials.");
                 }
             }
-
+        import { navLoad } from "/javascripts/partials/nav.js"    
         </script>
     <body>
 </html>
