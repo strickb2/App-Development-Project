@@ -4,15 +4,21 @@
     <%- include('partials/head'); -%>
   </head>
   
-  <body>
+  <body class="bg-secondary text-white">
     <!-- Navbar -->
     <%- include('partials/header'); -%>
     
-    <div class="bg-dark">
-      <div class="container">
-        <div class="row">
-          <h1 class="display-1 text-white text-center"> Vinyl Records </h1>
+    <div class="container">
+      <!-- Welcome Message -->
+      <section class="text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Vinyl Records</h1>
+            <p class="lead text-white">Welcome to RecordScrath! We have tons of albums for you to choose from such as Metal, Rock and Pop. Starting browsing below now!</p>
+          </div>
         </div>
+      </section>
+      <section>
         <!-- Filters for products list -->
         <div class="row d-flex justify-content-center">
           <div class="col-auto">
@@ -43,11 +49,14 @@
             <button onclick="getProductsFilteredBy()" class="btn btn-primary mb-3">Filter</button>
           </div>
         </div>
-          <!-- Products -->
-        <div class="card" id="ProductsContainer">
+        <!-- Products -->
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-8" id="ProductsContainer"></div>
+          <div class="col-2"></div>
         </div>
       </div>
-    </div>
+    </section>
     <!-- Footer -->
     <footer class="bg-secondary py-3 mt-auto text-white footer">
       <%- include('partials/footer'); -%>
@@ -58,7 +67,7 @@
     
     <script defer type="module">
       import getProductsFilteredBy from "/javascripts/eventHandler/eventFilterProducts.js";
-      import { navLoad } from "/javascripts/partials/nav.js"
+      import { navLoad } from "/javascripts/partials/nav.js";
       // Have module function accessible globally
       window.getProductsFilteredBy = getProductsFilteredBy;
     </script>

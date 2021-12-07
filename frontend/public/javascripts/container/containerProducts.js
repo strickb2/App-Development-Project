@@ -10,16 +10,16 @@ export function createProductsContainer(oProducts) {
         for(let idProduct=0; idProduct<=oProducts.length - 1; idProduct++) {
             let oProduct = oProducts[idProduct];
             
-            // Container for all product info
+            // Card for all product info
             let containerProduct = document.createElement('div');
-            containerProduct.className = "row";
+            containerProduct.className = "card flex-row m-2 text-dark";
             
             // Column for product image
             let columnImage = document.createElement('div');
-            columnImage.className = "col-2";
+            columnImage.className = "col-3";
 
             let elProductImage = document.createElement('img');
-            elProductImage.className = "img-thumbnail";
+            elProductImage.className = "card-img-top"; // img-thumbnail
             elProductImage.src = oProduct.product_image;
 
             columnImage.appendChild(elProductImage);
@@ -42,10 +42,10 @@ export function createProductsContainer(oProducts) {
 
             // Column for product price and more info button
             let columnMoreInfo = document.createElement('div');
-            columnMoreInfo.className = "col-3";
+            columnMoreInfo.className = "col-2";
 
             let elProductPrice = document.createElement("h3");
-            elProductPrice.innerHTML = "€" + oProduct.price;
+            elProductPrice.innerHTML = "€" + oProduct.price +"<br><br><br>";
             columnMoreInfo.appendChild(elProductPrice);
 
             let elButtonMoreInfo = document.createElement("button");

@@ -1,6 +1,6 @@
 import { getCurrentUser } from "../data/queryFetch.js"
 
-export function navLoad() {
+export function navLoad() {    
     // Get nav list
     const navList = document.getElementById("navList");
     if (localStorage.getItem('access')) {
@@ -21,16 +21,16 @@ export function navLoad() {
             // ------ Account Icon ------
             let elAccountIcon = document.createElement("li");
             elAccountIcon.className = "nav-item";
-            elAccountIcon.innerHTML = "<a class='nav-link'> \
+            elAccountIcon.innerHTML = "<a class='nav-link' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Log out'> \
                 <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-person-circle' viewBox='0 0 16 16'><path d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/> \
                 <path fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/> \
                 </svg> \
                 </a>"
             elAccountIcon.onclick = function() {
-                alert("Logged Out");
                 localStorage.setItem("access", "");
                 localStorage.setItem("refresh", "");
                 window.location.href = "/";
+                alert("Logged Out");
                 // Add Usability Button to Log Out here
             };
             navList.appendChild(elAccountIcon);
@@ -53,7 +53,7 @@ export function navLoad() {
         elLoginListItem.className = "nav-item";
 
         let elLoginLink = document.createElement("a");
-        elLoginLink.className = "nav-link";
+        elLoginLink.className = "btn btn-outline-primary";
         elLoginLink.href = "/login";
         elLoginLink.innerHTML = "Login";
         
@@ -65,7 +65,7 @@ export function navLoad() {
         elSignupListItem.className = "nav-item";
 
         let elSignupLink = document.createElement("a");
-        elSignupLink.className = "nav-link";
+        elSignupLink.className = "btn btn-outline-primary mx-1";
         elSignupLink.href = "/signup";
         elSignupLink.innerHTML = "Sign Up";
         

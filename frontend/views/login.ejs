@@ -4,21 +4,44 @@
         <%- include('partials/head'); -%>
         <title>Login Page</title>
     </head>
-    <body>
+    <body class="bg-secondary">
         <!-- Navbar -->
         <%- include('partials/header'); -%>
-        <h1>Login</h1>
-        <form id="login-form">
-            <label for="username-input">Username</label>
-            <input type="text" name="username-input" id="username" placeholder="Your username" required>
-            <label for="password-input">Password</label>
-            <input type="password" id="password" name="password-input" placeholder="Your password" required>
-            <button type="submit">Login</button>
-        </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="text-center"><h1>Login</h1></div>
+                    <div class="card">
+                        <form id="form-signin">
+                            <!-- Banner Image of Shop -->
+                            <img class="mb-4" src="https://placeholder.pics/svg/150x60/1500FF-40E4FF/FFFCFA/RecordScratch" alt="Shop Banner Image">
+                            <!-- Title -->
+                            <h1 class="h3 mb-4 font-weight-normal">Please sign in</h1>
+                            <!-- Username -->
+                            <div class="form-outline mb-4">
+                                <label for="username-input">Username</label>
+                                <input type="text" name="username-input" id="username" class="form-control" placeholder="Username" required>
+                            </div>
+                            <!-- Password -->
+                            <div class="form-outline mb-4">
+                                <label for="password-input">Password</label>
+                                <input type="password" id="password" class="form-control" name="password-input" placeholder="Password" required>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="form-outline mb-4">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
         <script type="module">
             import { navLoad } from "/javascripts/partials/nav.js"
             
-            let myform = document.getElementById("login-form"); // get the form
+            let myform = document.getElementById("form-signin"); // get the form
             myform.addEventListener('submit', function(e) {
                 e.preventDefault();
                 let uname = document.getElementById("username").value;
