@@ -30,12 +30,8 @@ export default function getProductsFilteredBy() {
         clearContainer(containerProducts);
         displayProducts(promiseProducts);
     } else {
-        // Check if no products were found in previous filter
-        if (containerProducts.innerHTML === "<h3>No Products Found.</h3>"){
+        // If no filters selected refresh the page
             clearContainer(containerProducts);
             displayProducts(getProducts());
-        } else {
-            alert("No Filters Selected");
-        }
     }
   };
