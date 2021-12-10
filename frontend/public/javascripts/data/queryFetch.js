@@ -1,4 +1,7 @@
-import { getProductsQuery, getGenresQuery, getArtistsQuery, getLabelsQuery, getProductQuery, getCurrentUserQuery } from "./queryUrl.js";
+import { getProductsQuery, getGenresQuery, getArtistsQuery, getLabelsQuery, getProductQuery, getCurrentUserQuery, getBasketItemsQuery } from "./queryUrl.js";
+
+// Auth headers
+
 
 // Function to fetch query from given URL
 export async function getData(url) {
@@ -7,46 +10,78 @@ export async function getData(url) {
   return data;
 };
 
-// Function to fetch query from given URL with given headers(e.g. auth token)
-export async function getDataWithHeaders(url, oHeaders) {
-  let response = await fetch(url,
+// Retrieves Products List
+export function getProducts() {
+  return getData(getProductsQuery());
+};
+
+// Retrieves Artists List
+export function getArtists() {
+  return getData(getArtistsQuery());
+};
+
+// Retrieves Genres List
+export function getGenres() {
+  return getData(getGenresQuery());
+};
+
+// Retrieves Labels List
+export function getLabels() {
+  return getData(getLabelsQuery());
+};
+
+// Retrieves a given product
+export function getProduct(product_id) {
+  return getData(getProductQuery(product_id));
+};
+
+// Retrieves User's Cart
+export function getCart() {
+  return getData(getBasketItemsQuery());
+};
+
+// Retrieves User's Data
+export async function getCurrentUser() {
+  let sToken = localStorage.getItem('access');
+
+  let oHeaders = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + sToken,
+  };
+
+  let response = await fetch(getCurrentUserQuery(),
     {
       method: "GET",
       headers: oHeaders,
     }
   );
+
   let data = await response.json();
   return data;
 };
 
-export function getProducts() {
-  return getData(getProductsQuery());
-};
+// Removes Cart Item or quantity
+export async function removeCartItem(product_id) {
+  let access = localStorage.getItem("access");
+  if(access) {
+    fetch('http://127.0.0.1:8000/remove/', {
+      method: 'POST',
 
-export function getArtists() {
-  return getData(getArtistsQuery());
-};
-
-export function getGenres() {
-  return getData(getGenresQuery());
-};
-
-export function getLabels() {
-  return getData(getLabelsQuery());
-};
-
-export function getProduct(product_id) {
-  return getData(getProductQuery(product_id));
-}
-
-export async function getCurrentUser() {
-  let token = localStorage.getItem('access');
-
-  let headers = {
-    "Accept": "application/json",
-    "Content-Type": "application/json",
-    "Authorization": "Bearer " + token,
-  }
-
-  return getDataWithHeaders(getCurrentUserQuery(), headers);
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + access                                       
+      },
+      
+      body: JSON.stringify({
+      "product_id": product_id
+      }),
+  })
+  .then(response => response.json())
+    window.location.reload();
+  } else {
+    //the user is not logged in,redirect them to the login page
+    window.location.href = "/login"
+  };
 }

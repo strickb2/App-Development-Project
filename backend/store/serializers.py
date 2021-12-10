@@ -65,10 +65,11 @@ class SongSerializer(serializers.HyperlinkedModelSerializer):
 class BasketItemSerializer(serializers.HyperlinkedModelSerializer):
     product_id = serializers.CharField(source="product_id.id")
     item_price = BasketItem.item_price
+    product_image = serializers.FileField(source="product_id.product_image")
     
     class Meta:
         model = BasketItem
-        fields = ['id', 'product_name', 'product_id', 'quantity', 'item_price', 'basket_id']
+        fields = ['id', 'product_name', 'product_id', 'quantity', 'item_price', 'product_image', 'basket_id']
 
 class BasketSerializer(serializers.HyperlinkedModelSerializer):
     items = BasketItemSerializer(many=True, read_only=True, source='basketitems_set')

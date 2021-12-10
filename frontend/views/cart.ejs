@@ -4,160 +4,34 @@
         <%- include('partials/head'); -%>
         <title>Shopping Cart</title>
     </head>
-    <body>
+    <body class="bg-secondary text-white">
         <!-- Navbar -->
         <%- include('partials/header'); -%>
-        <h1>Shopping Cart</h1>
-        <div class="ContainerCart">
+        
+        <!-- Cart Section -->
+        <div class="container">
+            <section class="text-center container">
+                <div class="row py-lg-5">
+                  <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Shopping Cart</h1>
+                  </div>
+                </div>
+            </section>
             <div id="ContainerCartList">
             </div>
             <div id="ContainerCartTotal">
             </div>
-            <div id="ContainerOrderButton">
+            <div id="ContainerOrderButtonRow" class="row">
+                <div class="col-10"></div>
+                <div class="col-2" id="ContainerOrderButton"></div>
             </div>
         </div>
-        <script type="module">
+
+        <!------------------------- JavaScript Segment ------------------------->
+        <script defer type="module" src="javascripts/page/cart.js"></script>
+        
+        <script defer type="module"> 
             import { navLoad } from "/javascripts/partials/nav.js";
-            
-            // Page Elements
-            const containerCartProducts = document.getElementById("ContainerCartList");
-            const containerCartTotal = document.getElementById("ContainerCartTotal");
-            const containerCartOrderButton = document.getElementById("ContainerOrderButton");
-
-            // Start Product Page
-            function init() {
-                displayProduct();
-            }
-            
-            async function getCartData() {
-                const requestCart = "http://127.0.0.1:8000/basketitems";
-                let response = await fetch(requestCart);
-                let data = await response.json();
-                return data;
-            };
-
-            // TODO:
-            function displayProduct() {
-                let oPromise = getCartData();
-                oPromise.then(oProducts => {
-                    if (oProducts) {
-                        // Get product from promise.json()
-                        let cartTotal = 0;
-                        for(let i=0; i < oProducts.length; i++) {
-                            let oProduct = oProducts[i];
-                            if (oProduct.quantity > 0) {
-                                // Append current product cost to cart total
-                                cartTotal += oProduct.item_price;
-
-                                // Cart Item Container
-                                let containerCartItem = document.createElement("div");
-                                containerCartItem.className = "row";
-
-                                // Col Cart Item Name
-                                let colCartItemName = document.createElement("div");
-                                colCartItemName.className = "col-3";
-                                // Cart Item Name
-                                let elCartItemName = document.createElement("h3");
-                                elCartItemName.innerHTML = oProduct.product_name;
-                                colCartItemName.appendChild(elCartItemName);
-
-                                // Col Cart Item Quantity
-                                let colCartItemQuantity = document.createElement("div");
-                                colCartItemQuantity.className = "col-3";
-                                // Cart Item Quantity
-                                let elCartItemQuantity = document.createElement("h3");
-                                elCartItemQuantity.innerHTML = oProduct.quantity;
-                                colCartItemQuantity.appendChild(elCartItemQuantity);
-
-                                // Col Cart Item Prce
-                                let colCartItemPrice = document.createElement("div");
-                                colCartItemPrice.className = "col-3";
-                                // Cart Item Price
-                                let elCartItemPrice = document.createElement("h3");
-                                elCartItemPrice.innerHTML = "€" + oProduct.item_price;
-                                colCartItemPrice.appendChild(elCartItemPrice);
-
-                                // Cart Item Remove Button
-                                let colButtonRemove = document.createElement("div")
-                                colButtonRemove.className = "col-3";
-                                let elButtonRemove = document.createElement("button");
-                                elButtonRemove.className = "btn btn-outline-primary btn-large text-center";
-                                elButtonRemove.type = "submit";
-                                elButtonRemove.innerHTML = "Remove";
-                                elButtonRemove.onclick = function() {
-                                    let access = localStorage.getItem("access");
-                                    if(access) {
-                                        fetch('http://127.0.0.1:8000/remove/', {
-                                            headers: {
-                                                "Accept": "application/json",
-                                                "Content-Type": "application/json",
-                                                "Authorization": "Bearer " + access                                       
-                                            },
-                                            method: 'POST',
-                                            body: JSON.stringify({
-                                                "product_id": oProduct.product_id
-                                            }),
-                                        })
-                                        .then(response => response.json())
-                                        window.location.reload();
-                                    } else {
-                                        //the user is not logged in,redirect them to the login page
-                                        window.location.href = "/login"
-                                    };
-                                };
-                                colButtonRemove.appendChild(elButtonRemove);
-                                
-                                containerCartItem.appendChild(colCartItemName);
-                                containerCartItem.appendChild(colCartItemQuantity);
-                                containerCartItem.appendChild(colCartItemPrice);
-                                containerCartItem.appendChild(colButtonRemove);
-
-                                // Add Cart Item to Cart List
-                                containerCartProducts.appendChild(containerCartItem);
-                            }
-                        }
-
-                        // Order
-                        const elButtonOrder = document.createElement("button");
-                        elButtonOrder.className = "btn btn-outline-primary btn-large text-center";
-                        elButtonOrder.type = "submit";
-                        elButtonOrder.innerHTML = "Order";
-                        elButtonOrder.onclick = function() {
-                            let access = localStorage.getItem("access")
-                            if(access){
-                                // User Logged In, Remove item and refresh cart
-                                fetch("http://127.0.0.1:8000/checkout/",
-                                {
-                                    headers: {
-                                        "Accept": "application/json",
-                                        "Content-Type": "application/json",
-                                        "Authorization": "Bearer " + access                                       
-                                    },
-                                    method: "POST",
-                                    body: JSON.stringify({"product_id": oProducts.product_id})
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    window.location.href = "/order";
-                                });
-                            } else {
-                                //the user is not logged in,redirect them to the login page
-                                window.location.href = "/login";
-                            }
-                        }
-
-                        containerCartOrderButton.appendChild(elButtonOrder);
-
-                        // Order Total
-                        let elCartTotal = document.createElement("h3");
-                        elCartTotal.innerHTML = "Total: €" + cartTotal + "<br>";
-                        containerCartTotal.appendChild(elCartTotal);
-                        
-                    };
-                })
-            }
-            init();
-
         </script>
     <body>
 </html>

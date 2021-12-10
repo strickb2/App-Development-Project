@@ -49,18 +49,6 @@ export function getCurrentUserQuery() {
     return getBackendQuery("user");
 };
 
-function getFrontendQuery(type) {
-    const baseFrontendUrl = "http://127.0.0.1:3000/";
-    const queries = {
-        "product":"product/?id=",
-        "login":"login/",
-        "signup":"signup/",
-    }
-    if (queries[type]) {
-        return baseFrontendUrl + queries[type];
-    }
-};
-
 export function getProductRedirectQuery(productId) {
-    return getFrontendQuery('product') + productId;
+    return "http://127.0.0.1:3000/product/?id=" + productId;
 };
