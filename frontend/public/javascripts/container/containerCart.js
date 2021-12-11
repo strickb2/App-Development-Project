@@ -1,9 +1,7 @@
-import { getCart } from "../data/queryFetch.js"
-import { removeCartItem } from "../data/queryFetch.js";
+import { getCart, removeCartItem } from "../data/queryFetch.js"
 
 // Page Elements
 const containerCartProducts = document.getElementById("ContainerCartList");
-const containerCartTotal = document.getElementById("ContainerCartTotal");
 const containerCartOrderButton = document.getElementById("ContainerOrderButton");
 
 export function displayCart() {
