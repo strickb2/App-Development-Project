@@ -6,6 +6,7 @@ const containerCartProducts = document.getElementById("ContainerCartList");
 const containerCartTotal = document.getElementById("ContainerCartTotal");
 const containerCartOrderButton = document.getElementById("ContainerOrderButton");
 
+// This function is used to create a HTML structure to display the cart items.
 export function displayCart() {
     let oPromise = getCart();
     oPromise.then(oCartItems => {
