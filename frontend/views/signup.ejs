@@ -117,9 +117,11 @@
                 let phone = document.getElementById("phone").value;                
                 let address = document.getElementById("address").value;
 
+                // If each of the forms are filled with valid input, the register function is called.
                 if (username && password && email && name && parseInt(phone) && address) {
                     register(username, password, email, name, phone, address);
                 } else {
+                    //  If they are empty, an alert prompts the user to fill them.
                     if(username == '') {
                         alert('Please enter username');
                     }
@@ -132,6 +134,9 @@
                     if(name == '') {
                         alert('Please enter full name');
                     }
+                    /* If a non-numerical input is entered into the Phone Number form,
+                       an alert prompts the user to enter a valid input.
+                    */ 
                     if(phone == '' || !parseInt(phone)) {
                         alert('Please enter valid phone number');
                     }
@@ -141,6 +146,7 @@
                 }
             });
             async function register(username, password, email, name, phone, address) {
+                // A fetch request is called that posts the form input into the user database on the backend.
                 const rawResponse = await fetch("http://127.0.0.1:8000/register/", {
                     method: 'POST',
                     headers: {
@@ -157,6 +163,9 @@
                                         )
                 });
                 console.log(rawResponse.status);
+                /* If an error code is not returned from the fetch request, 
+                   the account is created and the user is brought to the login page.
+                */ 
                 if(rawResponse.status >= 200 && rawResponse.status <= 299) {
                     window.location.href = "/login";
                     alert('Account Created. You can now log in.')
