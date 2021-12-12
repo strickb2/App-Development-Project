@@ -3,17 +3,24 @@
     <head>
         <%- include('partials/head'); -%>
     </head>
-    <body>
+    <body class="bg-secondary text-white">
         <!-- Navbar -->
         <%- include('partials/header'); -%>
         <!-- HTML container for displaying the properties of a given product on the page -->
         <div class="ProductContainer">
-            <div id="ProductTitleContainer" class="row">
-                <div id="ProductImageContainer" class="col-4">
+            <div class="container">
+                <div id="ProductTitleContainer" class="row py-lg-5">
+                    <div id="ProductImageContainer" class="col-4">
+                    </div>
+                    <div id="ProductDescContainer" class="col-4">
+                    </div>
+                    <div id="ProductPriceBuyContainer" class="col-4">
+                    </div>
                 </div>
-                <div id="ProductDescContainer" class="col-4">
-                </div>
-                <div id="ProductPriceBuyContainer" class="col-4">
+                <hr>
+                <div class="SongsContainer">
+                    <h3 class="fw-light">Songs</h3>
+                    <table id="SongsTable" class="table table-striped table-hover table-light"></table>
                 </div>
             </div>
         </div>

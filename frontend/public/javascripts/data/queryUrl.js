@@ -8,13 +8,18 @@ function getBackendQuery(type) {
         'genres':'genres/',
         'labels':'labels/',
         'basketitems':'basketitems/',
+        'songs':'songs/',
         "user":"users/current/"
     };
 
     if (queries[type]) {
-        return baseBackendUrl + queries[type]
+        if (type === 'songs') {
+            return baseBackendUrl + queries[type] + "?";
+        } else {
+            return baseBackendUrl + queries[type];
+        }
     } else if (type === 'filters') {
-        return baseBackendUrl + queries.products + "?"
+        return baseBackendUrl + queries.products + "?";
     };
 };
 
@@ -23,6 +28,10 @@ export function getProductsQuery() {
 };
 export function getProductQuery(productId) {
     return getFiltersQuery() + "id=" + String(productId);
+};
+
+export function getFiltersQuery() {
+    return getBackendQuery('filters');
 };
 
 export function getArtistsQuery() {
@@ -37,12 +46,12 @@ export function getLabelsQuery() {
     return getBackendQuery('labels');
 };
 
-export function getFiltersQuery() {
-    return getBackendQuery('filters');
-};
-
 export function getBasketItemsQuery() {
     return getBackendQuery('basketitems');
+};
+
+export function getSongsQuery(product_id) {
+    return getBackendQuery('songs') + "product_id=" + String(product_id);
 };
 
 export function getCurrentUserQuery() {

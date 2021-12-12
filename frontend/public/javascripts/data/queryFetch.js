@@ -1,4 +1,4 @@
-import { getProductsQuery, getGenresQuery, getArtistsQuery, getLabelsQuery, getProductQuery, getCurrentUserQuery, getBasketItemsQuery } from "./queryUrl.js";
+import { getProductsQuery, getGenresQuery, getArtistsQuery, getLabelsQuery, getProductQuery, getCurrentUserQuery, getBasketItemsQuery, getSongsQuery } from "./queryUrl.js";
 
 // Auth headers
 
@@ -40,6 +40,9 @@ export function getCart() {
   return getData(getBasketItemsQuery());
 };
 
+export function getSongs(product_id) {
+  return getData(getSongsQuery(product_id));
+}
 // Retrieves User's Data
 export async function getCurrentUser() {
   let sToken = localStorage.getItem('access');

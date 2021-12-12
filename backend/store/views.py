@@ -26,6 +26,8 @@ class GenreViewSet(viewsets.ModelViewSet):
 class SongViewSet(viewsets.ModelViewSet):
 	queryset = Song.objects.all()
 	serializer_class = SongSerializer
+	filter_backends = [DjangoFilterBackend]
+	filterset_fields = ['product_id']
 
 class LabelViewSet(viewsets.ModelViewSet):
 	queryset = Label.objects.all()

@@ -56,7 +56,7 @@ class GenreSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'name']
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
-    product_id = serializers.CharField(source="product.id")
+    product_id = serializers.CharField(source="product_id.id")
 
     class Meta:
         model = Song
