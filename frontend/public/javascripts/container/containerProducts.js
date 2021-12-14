@@ -63,9 +63,9 @@ export function createProductsContainer(oProducts) {
         };
     } else {
         // If no products say none found
-        let elProductNotFound = document.createElement("h3");
-
-        elProductNotFound.innerHTML = "No Products Found."
+        let elProductNotFound = document.createElement("div");
+        elProductNotFound.className = "card text-center bg-light text-danger"
+        elProductNotFound.innerHTML = "<h3> No Products Found </h3>"
 
         containerProducts.appendChild(elProductNotFound);
     }

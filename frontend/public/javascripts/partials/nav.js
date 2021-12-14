@@ -7,6 +7,12 @@ export function navLoad() {
         // If signed in, put user name beside account icon on navbar
         let userPromise = getCurrentUser();
         userPromise.then(user => {
+            // ------ My Orders ------
+            let elMyOrders = document.createElement("li");
+            elMyOrders.className = "nav-item";
+            elMyOrders.innerHTML = "<a class='nav-link' href='/myorders'>My Orders</a>";
+            navList.appendChild(elMyOrders);
+            
             // ------ User Name ------
             let elUserNameItem = document.createElement("li");
             elUserNameItem.className = "nav-item";
@@ -17,7 +23,7 @@ export function navLoad() {
 
             elUserNameItem.appendChild(elUserName);
             navList.appendChild(elUserNameItem);
-            
+
             // ------ Account Icon ------
             let elAccountIcon = document.createElement("li");
             elAccountIcon.className = "nav-item";
@@ -31,7 +37,7 @@ export function navLoad() {
                 localStorage.setItem("refresh", "");
                 window.location.href = "/";
                 alert("Logged Out");
-                // Add Usability Button to Log Out here
+                // Add Popover to Log Out here
             };
             navList.appendChild(elAccountIcon);
 

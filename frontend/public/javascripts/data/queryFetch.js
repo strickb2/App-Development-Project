@@ -1,4 +1,4 @@
-import { getProductsQuery, getGenresQuery, getArtistsQuery, getLabelsQuery, getProductQuery, getCurrentUserQuery, getBasketItemsQuery, getSongsQuery, getBasketQuery } from "./queryUrl.js";
+import { getProductsQuery, getGenresQuery, getArtistsQuery, getLabelsQuery, getProductQuery, getCurrentUserQuery, getBasketItemsQuery, getSongsQuery, getBasketQuery, getMyOrdersQuery } from "./queryUrl.js";
 
 // Function to fetch query from given URL
 export async function getData(url) {
@@ -150,3 +150,23 @@ export async function createOrderFetch(basket_id) {
     window.location.href = "/login";
   };
 }
+
+export async function getMyOrders(){
+  let access = localStorage.getItem("access");
+  if(access) {
+    let response = await fetch(getMyOrdersQuery(), {
+      method: 'GET',
+
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + access                                       
+      },
+    });
+    let data = await response.json();
+    return data;
+  } else {
+    //the user is not logged in,redirect them to the login page
+    window.location.href = "/login";
+  };
+};

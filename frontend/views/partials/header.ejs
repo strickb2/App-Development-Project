@@ -1,24 +1,30 @@
 <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
+    <div class="container">
         <!-- Nav Brand Image -->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/"><img src="https://placeholder.pics/svg/150x50/1500FF-40E4FF/FFFCFA/RecordScratch" alt="RecordScratch Banner Image"></a>
+        <div class="col-md-4">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/"><img src="https://placeholder.pics/svg/150x50/1500FF-40E4FF/FFFCFA/RecordScratch" alt="RecordScratch Banner Image"></a>
+            </div>
         </div>
         
         <!-- Page Links on Nav -->
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link link-primary" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link link-primary" href="/about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link link-primary" href="/contact">Contact</a>
-            </li>
-        </ul>
+        <div class="col-md-4 d-flex justify-content-center">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link link-primary" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-primary" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-primary" href="/contact">Contact</a>
+                </li>
+            </ul>
+        </div>
         
         <!-- Account and Cart Nav Items -->
-        <ul id="navList" class="navbar-right d-flex mb-0 list-unstyled"></ul>
+        <div class="col-md-4 d-flex flex-row-reverse">
+            <ul id="navList" class="navbar-right d-flex mb-0 list-unstyled"></ul>
+        </div>
     </div>
 </nav>

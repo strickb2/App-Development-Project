@@ -18,6 +18,10 @@ router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'Store | Sign Up' });
 });
 
+router.get('/myorders', function(req, res, next) {
+  res.render('myorders', { title: 'Store | My Orders' });
+});
+
 router.get('/cart', function(req, res, next) {
   res.render('cart', { title: 'Store | Cart' });
 });

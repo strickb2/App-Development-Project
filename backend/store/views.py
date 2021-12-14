@@ -65,6 +65,15 @@ class OrderViewSet(viewsets.ModelViewSet):
 	queryset = Order.objects.all()
 	serializer_class = OrderSerializer
 
+	def get_queryset(self):
+		user = self.request.user # get the current user
+		if user.is_superuser:
+			return Order.objects.all() # return all the orders if a superuser requests
+		else:
+			# For normal users, only return their orders
+			orders = Order.objects.filter(user_id=user)
+			return orders
+
 class APIUserViewSet(viewsets.ModelViewSet):
 	queryset = APIUser.objects.all()
 	serializer_class = APIUserSerializer

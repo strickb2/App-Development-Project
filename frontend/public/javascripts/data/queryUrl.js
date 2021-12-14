@@ -10,7 +10,8 @@ function getBackendQuery(type) {
         'basketitems':'basketitems/',
         'songs':'songs/',
         "user":"users/current/",
-        "baskets":"baskets/"
+        "baskets":"baskets/",
+        "orders":"orders/"
     };
 
     if (queries[type]) {
@@ -27,6 +28,11 @@ function getBackendQuery(type) {
 export function getProductsQuery() {
     return getBackendQuery('products');
 };
+
+export function getMyOrdersQuery() {
+    return getBackendQuery('orders');
+};
+
 export function getProductQuery(productId) {
     return getFiltersQuery() + "id=" + String(productId);
 };
@@ -46,6 +52,7 @@ export function getGenresQuery() {
 export function getLabelsQuery() {
     return getBackendQuery('labels');
 };
+
 export function getBasketQuery() {
     return getBackendQuery("baskets");
 };
