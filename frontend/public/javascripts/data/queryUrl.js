@@ -9,7 +9,8 @@ function getBackendQuery(type) {
         'labels':'labels/',
         'basketitems':'basketitems/',
         'songs':'songs/',
-        "user":"users/current/"
+        "user":"users/current/",
+        "baskets":"baskets/"
     };
 
     if (queries[type]) {
@@ -44,6 +45,9 @@ export function getGenresQuery() {
 
 export function getLabelsQuery() {
     return getBackendQuery('labels');
+};
+export function getBasketQuery() {
+    return getBackendQuery("baskets");
 };
 
 export function getBasketItemsQuery() {

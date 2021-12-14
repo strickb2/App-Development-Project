@@ -50,6 +50,16 @@ class BasketViewSet(viewsets.ModelViewSet):
 class BasketItemViewSet(viewsets.ModelViewSet):
 	queryset = BasketItem.objects.all()
 	serializer_class = BasketItemSerializer
+	permission_classes = [IsAuthenticated]
+	
+	def get_queryset(self):
+		user = self.request.user
+		if user.is_superuser:			
+			BasketItem.objects.all()
+		else:
+			# Get basket for current user and current basket's items
+			basket = Basket.objects.filter(user_id=user, is_active=True).values()[0]['id']
+			return BasketItem.objects.filter(basket_id=basket)
 
 class OrderViewSet(viewsets.ModelViewSet):
 	queryset = Order.objects.all()
