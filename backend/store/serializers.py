@@ -6,7 +6,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = APIUser
         fields = ['username', 'email', 'password', 'name', 'address', 'phone']
-        #extra_kwargs = {'password': {'write-only': True}}
+        #extra_kwargs = {'password': {'write-only': True}} - Breaks code for some reason?
 
     def create(self, validated_data):
         email = validated_data['email']
@@ -134,21 +134,26 @@ class RemoveBasketItemSerializer(serializers.ModelSerializer):
 class CheckoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['basket_id']
+        fields = ['basket_id', 'total_price']
 
     def create(self, validated_data):
         request = self.context.get('request', None)
+        # Get current user
         current_user = request.user
+        
+        # get the shopping basket and mark inactive
         basket_id = validated_data['basket_id']
-        # get the sopping basket
-        # mark as inactive
         basket_id.is_active = False
         basket_id.save()
-        # create a new order 
-        order = Order.objects.create(basket_id = basket_id, user_id = current_user)
+        
+        # get the total order price and create a new order
+        total_price = validated_data['total_price']
+        order = Order.objects.create(basket_id=basket_id, user_id=current_user, total_price=total_price)
         order.save()
+        
         # create a new empty basket for the customer 
-        new_basket = Basket.objects.create(user_id = current_user)# Create a shopping basket 
+        new_basket = Basket.objects.create(user_id = current_user) # Create a shopping basket 
         new_basket.save()
+        
         # return the order
         return order

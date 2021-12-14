@@ -1,145 +1,166 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Your Order</title>
-
-    <!-- Bootstrap core CSS -->
     <%- include('partials/head'); -%>
-
-    <!-- Custom styles for this template -->
-    <link href="/frontend/public/stylesheets/order.css" rel="stylesheet">
   </head>
 
-  <body class="bg-light">
+  <body class="bg-secondary">
     <!-- Navbar -->
     <%- include('partials/header'); -%>
     <div class="container">
-      <div class="py-5 text-center">
-        <h2>Your Order</h2>
+      <div class="col-lg-12 col-md-12 mx-auto py-4 text-center">
+        <h2 class="fw-light text-white"><b>Your Order</b></h2>
+        <hr class="text-white">
       </div>
 
-      <!-- Cart -->
       <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Your cart</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <div id="ContainerProduct">
-                <div id="ContainerProductName"></div>
-                <div id="ContainerProductPrice"></div>
-            </div>
-            <li class="list-group-item d-flex justify-content-between">
-                <div id="ContainerProductTotal"></div>
-            </li>
-          </ul>
+        <div class="col-md-4 order-md-3 mb-3">
+          <!-- Section: Order Cart -->
+          <section>
+            <!-- Cart Title -->
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-light">Your cart</span>
+            </h4>
+            <!-- List of Cart Items -->
+            <ul class="list-group mb-3">
+              <div id="ContainerOrderCart">
+              </div>
+              <li class="list-group-item d-flex justify-content-between">
+                  <div id="ContainerOrderCartTotal"></div>
+              </li>
+            </ul>
+          </section>
         </div>
+
+        <!-- User and Payment Section -->
         <div class="col-md-8 order-md-1">
-          <h4 class="mb-3">User Details</h4>
-          <form class="needs-validation" novalidate>
-            <div class="row">
-    
-            <!-- Name -->
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-header">Name</div>
-                    <div class="card-body">
-                        <div id="ContainerName"></div>
+          <!-- User Details Section -->
+          <section>
+            <h4 class="mb-3 text-white">User Details</h4>
+              <div class="row">
+                <!-- Name -->
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">Name</div>
+                        <div class="card-body">
+                            <div id="ContainerName"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Email Address -->
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-header">Email Address</div>
-                    <div class="card-body">
-                        <div id="ContainerEmail"></div>
+                <!-- Email Address -->
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">Email Address</div>
+                        <div class="card-body">
+                            <div id="ContainerEmail"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+              </div>
 
-            <!-- Address -->
-            <div class="mb-3">
-                <div class="card">
-                    <div class="card-header">Address</div>
-                    <div class="card-body">
-                        <div id="ContainerAddress"></div>
+              <!-- Address -->
+              <div class="mb-3">
+                  <div class="card">
+                      <div class="card-header">Address</div>
+                      <div class="card-body">
+                          <div id="ContainerAddress"></div>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Phone Number -->
+              <div class="mb-3">
+                  <div class="card">
+                      <div class="card-header">Phone Number</div>
+                      <div class="card-body">
+                          <div id="ContainerPhone">
+                      </div>
+                  </div>
+              </div>
+          </section>
+          <hr>
+          <br>
+
+          <!-- Dummy Payment Section -->
+          <section class="text-white">
+            <h4 class="mb-3">Payment Method</h4>
+            <form class="needs-validation" novalidate>
+              <!-- Payment Method Options -->
+              <div class="d-block my-3">
+                
+                <!-- Credit Card Option -->
+                <div class="custom-control custom-radio">
+                  <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                  <label class="custom-control-label" for="credit">Credit card</label>
+                </div>
+                
+                <!-- Debit Card Option -->
+                <div class="custom-control custom-radio">
+                  <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="debit">Debit card</label>
+                </div>
+                
+                <!-- Paypal Card Option -->
+                <div class="custom-control custom-radio">
+                  <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="paypal">Paypal</label>
+                </div>
+              </div>
+              
+              <!-- Payment Details -->
+              <div class="row">
+                <!-- Card Name -->
+                <div class="col-md-6 mb-3">
+                  <label for="cc-name">Name on card</label>
+                  <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                  <small class="text-white">Full name as displayed on card</small>
+                  <div class="invalid-feedback">
+                    <div class="card bg-danger text-white">
+                      Name on card is required
                     </div>
+                  </div>
                 </div>
-            </div>
-
-            <!-- Phone Number -->
-            <div class="mb-3">
-                <div class="card">
-                    <div class="card-header">Phone Number</div>
-                    <div class="card-body">
-                        <div id="ContainerPhone">
+                
+                <!-- Card Number -->
+                <div class="col-md-6 mb-3">
+                  <label for="cc-number">Credit card number</label>
+                  <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                  <div class="invalid-feedback">
+                    <div class="card bg-danger text-white">
+                      Credit card number is required
                     </div>
+                  </div>
                 </div>
-            </div>
-            <br>
+              </div>
 
-            <!-- Dummy Payment Section -->
-            <h4 class="mb-3">Payment</h4>
+              <div class="row">
+                <!--  Card Expiration Date -->
+                <div class="col-md-3 mb-3">
+                  <label for="cc-expiration">Expiration</label>
+                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                  <div class="invalid-feedback">
+                    <div class="card bg-danger text-white">
+                      Expiration date required
+                    </div>
+                  </div>
+                </div>
 
-            <div class="d-block my-3">
-              <div class="custom-control custom-radio">
-                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                <label class="custom-control-label" for="credit">Credit card</label>
-              </div>
-              <div class="custom-control custom-radio">
-                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                <label class="custom-control-label" for="debit">Debit card</label>
-              </div>
-              <div class="custom-control custom-radio">
-                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                <label class="custom-control-label" for="paypal">Paypal</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="cc-name">Name on card</label>
-                <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                <small class="text-muted">Full name as displayed on card</small>
-                <div class="invalid-feedback">
-                  Name on card is required
+                <!-- Card CVV Number -->
+                <div class="col-md-3 mb-3">
+                  <label for="cc-expiration">CVV</label>
+                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                  <div class="invalid-feedback">
+                    <div class="card bg-danger text-white">
+                      Security code required
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="cc-number">Credit card number</label>
-                <!-- Input type set to number to prevent alphabetical input. -->
-                <!-- This section is not sent to the database, so it does not need to be handled as a string. -->
-                <input type="number" class="form-control" id="cc-number" placeholder="" required>
-                <div class="invalid-feedback">
-                  Credit card number is required
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-3 mb-3">
-                <label for="cc-expiration">Expiration</label>
-                <input type="number" class="form-control" id="cc-expiration" placeholder="" required>
-                <div class="invalid-feedback">
-                  Expiration date required
-                </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="cc-expiration">CVV</label>
-                <input type="number" class="form-control" id="cc-cvv" placeholder="" required>
-                <div class="invalid-feedback">
-                  Security code required
-                </div>
-              </div>
-            </div>
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Purchase Now</button>
-          </form>
+              <hr>
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Purchase Now</button>
+            </form>
+          </section>
         </div>
       </div>
 
@@ -147,137 +168,39 @@
       <footer class="my-5 pt-5 text-muted text-center text-small">
       </footer>
     </div>
+    
+    <!------------------------- JavaScript Segment ------------------------->
+    <script type="module" src="javascripts/page/order.js"></script>
+  
+    <script defer type="module">
+      import { createOrder } from "/javascripts/eventHandler/eventCreateOrder.js";
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script>
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function() {
-        'use strict';
+      // Bootstrap starter JavaScript for disabling form submissions if there are invalid fields
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
 
-        window.addEventListener('load', function() {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation');
-
-          // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-              if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-              form.classList.add('was-validated');
-            }, false);
-          });
-        }, false);
-      })();
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            // Check if payment form is 'valid'
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            } else {
+              event.preventDefault();
+              // If valid, create order and redirect to homepage
+              createOrder();
+            };
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
     </script>
+
     <script type="module">
-      import { navLoad } from "/javascripts/partials/nav.js"
-      import { getCurrentUser, getCart } from "/javascripts/data/queryFetch.js"
-
-        const containerOrderName = document.getElementById("ContainerName");
-        const containerOrderEmail = document.getElementById("ContainerEmail");
-        const containerOrderPhone = document.getElementById("ContainerPhone");
-        const containerOrderAddress = document.getElementById("ContainerAddress");
-
-        const containerOrderProduct = document.getElementById("ContainerProduct");
-        const containerOrderProductName = document.getElementById("ContainerProductName");
-        const containerOrderProductPrice = document.getElementById("ContainerProductPrice");
-        const containerOrderProductTotal = document.getElementById("ContainerProductTotal");
-
-        // Start Product Page
-        function init() {
-            displayProduct();
-            displayUser();
-        }
-
-        // User Data
-        function displayUser() {
-        let oPromise = getCurrentUser();
-        oPromise.then(oUser => {
-            // User Name
-            let elUserName = document.createElement("p");
-            elUserName.innerHTML = oUser.name
-            elUserName.className = "card-text";
-
-            // User Address
-            let elUserAddress = document.createElement("p");
-            elUserAddress.innerHTML = oUser.address
-            elUserAddress.className = "card-text";
-
-            // User Email
-            let elUserEmail = document.createElement("p");
-            elUserEmail.innerHTML = oUser.email
-            elUserEmail.className = "card-text";
-
-            // User Phone
-            let elUserPhone = document.createElement("p");
-            elUserPhone.innerHTML = oUser.phone
-            elUserPhone.className = "card-text";
-
-            containerOrderName.append(elUserName);
-            containerOrderEmail.append(elUserEmail);
-            containerOrderAddress.append(elUserAddress);
-            containerOrderPhone.append(elUserPhone);
-        })
-        }
-
-        // Product Data
-        function displayProduct() {
-        let oPromise = getCart();
-        oPromise.then(oProducts => {
-            if (oProducts) {
-                // Get product from promise.json()
-                let cartTotal = 0;
-                for(let i=0; i < oProducts.length; i++) {
-                    let oProduct = oProducts[i];
-                    if (oProduct.quantity > 0) {
-                        // Append current product cost to cart total
-                        cartTotal += oProduct.item_price;
-
-                        // Cart Item Container
-                        let containerCartItem = document.createElement("li");
-                        containerCartItem.className = "list-group-item d-flex justify-content-between lh-condensed";
-                        containerOrderProduct.appendChild(containerCartItem);
-
-                        // Item Name
-                        let elCartItemName = document.createElement("h6");
-                        elCartItemName.innerHTML = oProduct.product_name;
-                        elCartItemName.className = "my-0";
-
-                        // Item Quantity
-                        let elCartItemQuantity = document.createElement("small");
-                        elCartItemQuantity.innerHTML = " x" + oProduct.quantity;
-                        elCartItemQuantity.className = "text-muted";
-                        elCartItemName.appendChild(elCartItemQuantity);
-
-                        // Item Price
-                        let elCartItemPrice = document.createElement("span");
-                        elCartItemPrice.innerHTML = "€" + oProduct.item_price;
-                        elCartItemPrice.className = "text-muted";
-                        
-                        containerOrderProductName.appendChild(elCartItemName);
-                        containerOrderProductPrice.appendChild(elCartItemPrice);
-
-                        containerCartItem.appendChild(containerOrderProductName);
-                        containerCartItem.appendChild(containerOrderProductPrice);
-                    }
-                }
-                
-                // Order Total
-                let elCartTotal = document.createElement("span");
-                elCartTotal.innerHTML = "Total: €" + "<strong>" + cartTotal + "<strong>"+ "<br>";
-                containerOrderProductTotal.appendChild(elCartTotal);
-            } 
-        })
-        }
-
-        init();
-
+      import { navLoad } from "/javascripts/partials/nav.js"      
     </script>
+
   </body>
 </html>

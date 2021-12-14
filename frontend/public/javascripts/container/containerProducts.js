@@ -21,6 +21,7 @@ export function createProductsContainer(oProducts) {
             let elProductImage = document.createElement('img');
             elProductImage.className = "card-img-top"; // img-thumbnail
             elProductImage.src = oProduct.product_image;
+            elProductImage.alt = oProduct.name + " Cover Image"
 
             columnImage.appendChild(elProductImage);
 

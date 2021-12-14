@@ -17,6 +17,7 @@ export function createProductContainer(oProduct) {
         elProductImage.className = "img-thumbnail";
         elProductImage.style = "height:300px";
         elProductImage.src = oProduct.product_image;
+        elProductImage.alt = oProduct.name + " Cover Image"
         containerProductImage.appendChild(elProductImage);
 
         // - Column 2: Title Description
