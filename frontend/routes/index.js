@@ -26,4 +26,12 @@ router.get('/order', function(req, res, next) {
   res.render('order', { title: 'Store | Order' });
 });
 
+router.get('/about', function(req, res, next) {
+  res.render('about', { title: 'Store | About' });
+});
+
+router.get('/contact', function(req, res, next) {
+  res.render('contact', { title: 'Store | Contact' });
+});
+
 module.exports = router;
