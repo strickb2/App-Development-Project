@@ -22,6 +22,7 @@ export function displayMyOrders() {
                 tableBodyMyOrders.appendChild(containerOrderRow);
             };
         } else {
+            // Displays if user has not placed any orders
             tableBodyMyOrders.className = "text-danger thead-danger";
             tableBodyMyOrders.innerHTML = "<tr> <td colspan='4' class='text-danger text-center'> You haven't placed any orders yet! </td> </tr>"
         }
