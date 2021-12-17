@@ -108,7 +108,7 @@ export function displayCart() {
                 elTableFooter.className="text-dark thead-light";
                 elTableFooter.innerHTML = "<tr> \
                         <td colspan='4'></th> \
-                        <th scope='col'>" + "Total: €" + cartTotal + "</th> \
+                        <th scope='col'>" + "Total: €" + cartTotal.toFixed(2) + "</th> \
                     </tr>"
                 elTable.appendChild(elTableFooter);
 
